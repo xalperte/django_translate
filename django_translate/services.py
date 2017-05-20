@@ -98,7 +98,8 @@ def monkeypatch_django():
     from django.utils.translation import trans_real
     
     def get_locale():
-        if trans_real._active and hasattr(trans_real._active, "value"):
+        if trans_real._active and hasattr(trans_real._active, "value") and \
+                hasattr(trans_real._active.value, "__locale"):
             return trans_real._active.value.__locale
         
         if trans_real._default and hasattr(trans_real._default, "_DjangoTranslation__locale"):
